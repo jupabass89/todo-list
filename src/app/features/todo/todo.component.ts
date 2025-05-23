@@ -9,7 +9,7 @@ import { SearchBarComponent } from '../../components/search-bar/search-bar.compo
 import { TaskListComponent } from '../../components/task-list/task-list.component';
 import { TodoLayoutComponent } from '../../components/todo-layout/todo-layout.component';
 import { Task, TaskListType } from '../../shared/types/todo-list.types';
-import { getFormattedValue } from './../../shared/utils/todo.utils';
+import { getFormattedValue } from '../../shared/utils/todo.utils';
 import { AddTaskFormComponent } from './add-task-form/add-task-form.component';
 import { TodoServiceService } from './todo.service.service';
 
