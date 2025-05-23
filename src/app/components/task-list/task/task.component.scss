@@ -1,4 +1,4 @@
-.row {
+.task-row {
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -6,11 +6,11 @@
 }
 
 .pending {
-  background-color: rgb(220, 235, 197);
+  background-color: #dcebc5;
   border-radius: 10px;
 }
 
 .expired {
-  background-color: rgb(247, 205, 205);
+  background-color: #f7cdcd;
   border-radius: 10px;
 }

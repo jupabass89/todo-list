@@ -1,10 +1,10 @@
-.header {
+.toolbar {
   display: flex;
   justify-content: space-between;
   height: 80px;
 }
 
-.content {
+.list {
   padding: 30px;
 
   @media screen and (min-width: 900px) {

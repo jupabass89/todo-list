@@ -16,11 +16,10 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    CommonModule,
     FormsModule,
+    CommonModule,
   ],
   templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

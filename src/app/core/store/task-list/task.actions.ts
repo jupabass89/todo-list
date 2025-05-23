@@ -6,7 +6,3 @@ export const deleteTask = createAction(
   '[Task] Delete',
   props<{ task: Task }>()
 );
-export const resetTasks = createAction(
-  '[Task] Reset',
-  props<{ taskList: Task[] }>()
-);

@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../core/store/app.state';
-import {
-  addTask,
-  deleteTask,
-  resetTasks,
-} from '../../core/store/task-list/task.actions';
+import { addTask, deleteTask } from '../../core/store/task-list/task.actions';
 import { DateService } from '../../shared/date.service';
 import { Task, TaskListType } from '../../shared/types/todo-list.types';
 
@@ -51,10 +47,4 @@ export class TodoServiceService {
   public deleteTask(task: Task) {
     this.store.dispatch(deleteTask({ task }));
   }
-
-  public resetTasks(taskList: Task[]) {
-    localStorage.setItem('taskList', JSON.stringify(taskList));
-    this.store.dispatch(resetTasks({ taskList }));
-  }
-
 }

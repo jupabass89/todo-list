@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,12 +16,11 @@ import { TodoServiceService } from './todo.service.service';
   standalone: true,
   selector: 'app-todo',
   imports: [
-    TaskListComponent,
-    MatButtonModule,
-    MatIconModule,
-    CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
+    TaskListComponent,
+    MatIconModule,
+    MatButtonModule,
     SearchBarComponent,
     TodoLayoutComponent,
   ],
