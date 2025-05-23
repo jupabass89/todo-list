@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { debounceTime } from 'rxjs';
 import { TaskListComponent } from '../../components/task-list/task-list.component';
-import { TaskListType } from '../../shared/types/todo-list.types';
+import { Task, TaskListType } from '../../shared/types/todo-list.types';
 
 @Component({
   standalone: true,
@@ -31,10 +31,18 @@ export class TodoComponent implements OnInit {
   public searchValue: string = '';
 
   public searchControl = new FormControl('');
+  public localeoptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: undefined,
+    minute: undefined,
+    second: undefined,
+  }
 
   constructor() {
     this.searchControl.valueChanges
-      .pipe(debounceTime(400)) // waits 300ms after last change
+      .pipe(debounceTime(400))
       .subscribe((value) => {
         console.log('Debounced value:', value);
         this.filteredTasks = this.taskList.filter((task) =>
@@ -44,7 +52,14 @@ export class TodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('init');
+    this.localeoptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: undefined,
+      minute: undefined,
+      second: undefined,
+    }
     this.taskList = [
       {
         id: '123',
@@ -56,7 +71,7 @@ export class TodoComponent implements OnInit {
           hour: undefined,
           minute: undefined,
           second: undefined,
-        }),
+        } ),
       },
       {
         id: '234',
@@ -83,7 +98,20 @@ export class TodoComponent implements OnInit {
         }),
       },
     ];
+    this.addExpirationDate();
     this.filteredTasks = [...this.taskList];
+  }
+
+  private addExpirationDate() {
+    this.taskList = this.taskList.map((task: Task, inx: number) => ({
+      ...task,
+      expired: this.calculateIsExpired(inx),
+    }));
+  }
+
+  private calculateIsExpired(i: number) {
+    const newDate = new Date();
+    return newDate > new Date(this.taskList[i].dueDate ?? '');
   }
 
   public onBlur() {

@@ -1,6 +1,6 @@
 <section class="row">
-  <mat-checkbox (change)="onCheck()" [(ngModel)]="checked">{{title}}</mat-checkbox>
-  <div [ngClass]="{ 'pending': !isExpired, 'expired': isExpired }">
-    <mat-chip>{{dueDate}}</mat-chip>
+  <mat-checkbox (change)="onCheck()" [(ngModel)]="checked">{{task.title}}</mat-checkbox>
+  <div [ngClass]="{ 'pending': !task.expired, 'expired': task.expired }">
+    <mat-chip>{{task.dueDate}}</mat-chip>
   </div>
 </section>

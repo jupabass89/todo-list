@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -18,6 +24,7 @@ import { TaskComponent } from './task/task.component';
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent {
   @Input() taskList: TaskListType = [];
@@ -25,11 +32,5 @@ export class TaskListComponent {
 
   public completeTask(taskId: string) {
     this.check.emit(taskId);
-  }
-
-  calculateIsExpired(i: number) {
-    const newDate = new Date();
-    console.log(newDate > new Date(this.taskList[i].dueDate ?? ''));
-    return newDate > new Date(this.taskList[i].dueDate ?? '')
   }
 }

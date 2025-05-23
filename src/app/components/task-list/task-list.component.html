@@ -1,9 +1,3 @@
-<!-- @if (show) {
-
-
-} -->
 @for (task of taskList; track task.id; let i = $index) {
-
-<app-task [id]="task.id" [isExpired]="calculateIsExpired(i)" (toogleCheck)="completeTask(task.id)" [title]="task.title"
-  [dueDate]="task?.dueDate" />
+<app-task [task]="task" (toogleCheck)="completeTask(task.id)" />
 }
