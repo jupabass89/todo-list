@@ -24,10 +24,10 @@ import { MatInputModule } from '@angular/material/input';
 export class AddTaskFormComponent {
   form: FormGroup;
   dialogRef = inject(MatDialogRef<AddTaskFormComponent>);
-  fb = inject(FormBuilder);
+  formBuilder = inject(FormBuilder);
 
   constructor() {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       title: [''],
       dueDate: [''],
     });

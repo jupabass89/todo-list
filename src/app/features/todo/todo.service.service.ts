@@ -2,81 +2,69 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../core/store/app.state';
+import {
+  addTask,
+  deleteTask,
+  resetTasks,
+} from '../../core/store/task-list/task.actions';
 import { Task, TaskListType } from '../../shared/types/todo-list.types';
-import { addTask, resetTasks } from '../../core/store/task-list/task.actions';
+
+const TIME_SETTINGS = {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoServiceService {
-  public date = new Date('12/09/2027').toLocaleString('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: undefined,
-    minute: undefined,
-    second: undefined,
-  });
+  public taskList: TaskListType = [];
+  public tasks$: Observable<Task[]>;
+  public title = '';
 
-  // public taskList: TaskListType = [
-  //   {
-  //     id: '123',
-  //     title: 'tarea 1',
-  //     dueDate: this.date,
-  //   },
-  //   {
-  //     id: '234',
-  //     title: 'tarea 2',
-  //     dueDate: this.date,
-  //   },
-  //   {
-  //     id: '546',
-  //     title: 'tarea 3',
-  //     dueDate: this.date,
-  //   },
-  // ];
-  
-  title = '';
-  tasks$: Observable<Task[]>;
-
-  constructor(private store: Store<AppState>) {
+  constructor(private readonly store: Store<AppState>) {
     this.tasks$ = this.store.select('taskList');
     this.tasks$.subscribe((tasks) => {
-      console.log(tasks)
       this.taskList = tasks;
       this.addExpirationDate();
     });
   }
 
-  public taskList: TaskListType = [];
+  public getTasks() {
+    return this.tasks$;
+  }
 
   private addExpirationDate() {
     this.taskList = this.taskList.map((task: Task) => ({
       ...task,
-      expired: this.calculateIsExpired(task),
+      expired: this.calculateIsExpired(task.dueDate),
     }));
   }
 
   public getTaskList() {
-    // this.addExpirationDate();
     return this.taskList;
   }
 
   public addTask(task: Task) {
-    // this.addExpirationDate();
-    this.store.dispatch(addTask({task}))
-    return this.taskList;
+    this.store.dispatch(addTask({ task }));
   }
 
-
-  public resetTasks(taskList: Task[]) {
-    // this.addExpirationDate();
-    this.store.dispatch(resetTasks({taskList}))
-    return this.taskList;
+  public deleteTask(task: Task) {
+    this.store.dispatch(deleteTask({ task }));
   }
 
-  public calculateIsExpired(task: Task) {
+  // public resetTasks(taskList: Task[]) {
+  //   this.store.dispatch(resetTasks({ taskList }));
+  //   return this.taskList;
+  // }
+
+  public calculateIsExpired(date?: string) {
     const newDate = new Date();
-    return newDate > new Date(task.dueDate ?? '');
+    return newDate > new Date(date ?? '');
+  }
+
+  public getFormattedValue(date: string) {
+    return new Date(date).toLocaleString('en-US', TIME_SETTINGS as any);
   }
 }
