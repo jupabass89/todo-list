@@ -1,1 +1,6 @@
-<p>search-bar works!</p>
+<section class="search-bar">
+  <mat-form-field>
+    <mat-label>Task</mat-label>
+    <input type="text" matInput placeholder="" (input)="onChange(value)" [(ngModel)]="value">
+  </mat-form-field>
+</section>

@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { debounceTime } from 'rxjs';
+import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { TaskListComponent } from '../../components/task-list/task-list.component';
 import { Task, TaskListType } from '../../shared/types/todo-list.types';
 import { AddTaskFormComponent } from './add-task-form/add-task-form.component';
@@ -29,6 +30,7 @@ const timeSettings = {
     CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
+    SearchBarComponent,
   ],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.scss',
@@ -36,7 +38,6 @@ const timeSettings = {
 export class TodoComponent implements OnInit {
   public filteredTasks: TaskListType = [];
   public taskList: TaskListType = [];
-  public isSearchBarShown = false;
   public searchValue: string = '';
 
   public searchControl = new FormControl('');
@@ -78,13 +79,6 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {
     this.taskList = this.todoServiceService.getTaskList();
     this.filteredTasks = [...this.taskList];
-  }
-
-  public onBlur() {
-    setTimeout(() => {
-      this.filteredTasks = [...this.taskList];
-      this.searchControl.setValue('');
-    }, 400);
   }
 
   public onCheckedTask(id: string) {

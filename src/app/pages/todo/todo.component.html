@@ -1,10 +1,7 @@
 <mat-toolbar class="header">
   <span>TODO</span>
   <section class="search-bar">
-    <mat-form-field>
-      <mat-label>Task</mat-label>
-      <input type="tel" matInput placeholder="" [formControl]="searchControl" (blur)="onBlur()">
-    </mat-form-field>
+    <app-search-bar [formControl]="searchControl" />
   </section>
   <button (click)="openDialog()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>add</mat-icon>
