@@ -6,7 +6,7 @@
       <input type="tel" matInput placeholder="" [formControl]="searchControl" (blur)="onBlur()">
     </mat-form-field>
   </section>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+  <button (click)="openDialog()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>add</mat-icon>
   </button>
 </mat-toolbar>
