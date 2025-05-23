@@ -1,1 +1,10 @@
-<p>todo-layout works!</p>
+<mat-toolbar class="header">
+  <h3>TODO</h3>
+  <section class="search-bar">
+    <ng-content select="[search-bar]"></ng-content>
+  </section>
+  <ng-content select="[add-button]"></ng-content>
+</mat-toolbar>
+<section class="content">
+  <ng-content select="[task-list]"></ng-content>
+</section>

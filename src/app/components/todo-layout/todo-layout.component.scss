@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.content {
+  padding: 30px;
+
+  @media screen and (min-width: 900px) {
+    padding: 30px 10%;
+  }
+}
+
+.search-bar {
+  margin-top: 20px;
+}

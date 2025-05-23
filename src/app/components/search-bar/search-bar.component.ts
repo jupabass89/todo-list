@@ -43,7 +43,9 @@ export class SearchBarComponent implements ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+    // TODO
+  }
 
   onInput(event: Event): void {
     this.value = (event.target as HTMLInputElement).value;

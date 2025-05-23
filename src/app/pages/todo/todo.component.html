@@ -1,13 +1,14 @@
-<mat-toolbar class="header">
-  <span>TODO</span>
-  <section class="search-bar">
+<app-todo-layout>
+  <ng-container search-bar>
     <app-search-bar [formControl]="searchControl" />
-  </section>
-  <button (click)="openDialog()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>add</mat-icon>
-  </button>
-</mat-toolbar>
-
-<section class="content">
-  <app-task-list [taskList]="filteredTasks" (check)="onCheckedTask($event)" />
-</section>
+  </ng-container>
+  <ng-container add-button>
+    <button (click)="openDialog()" mat-icon-button class="example-icon"
+      aria-label="Example icon-button with share icon">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-container>
+  <ng-container task-list>
+    <app-task-list [taskList]="filteredTasks" (check)="onCheckedTask($event)" />
+  </ng-container>
+</app-todo-layout>

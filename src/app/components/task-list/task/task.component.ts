@@ -30,7 +30,6 @@ import { Task } from '../../../shared/types/todo-list.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskComponent {
-
   @Input() task!: Task;
   @Output() toogleCheck = new EventEmitter<string>();
 

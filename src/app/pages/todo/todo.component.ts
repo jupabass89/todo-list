@@ -4,20 +4,15 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { debounceTime } from 'rxjs';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { TaskListComponent } from '../../components/task-list/task-list.component';
+import { TodoLayoutComponent } from '../../components/todo-layout/todo-layout.component';
 import { Task, TaskListType } from '../../shared/types/todo-list.types';
+import { getFormattedValue } from './../../shared/utils/todo.utils';
 import { AddTaskFormComponent } from './add-task-form/add-task-form.component';
 import { TodoServiceService } from './todo.service.service';
 
-const timeSettings = {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-};
 @Component({
   standalone: true,
   selector: 'app-todo',
@@ -25,21 +20,18 @@ const timeSettings = {
     TaskListComponent,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule,
-    MatInputModule,
     CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
     SearchBarComponent,
+    TodoLayoutComponent,
   ],
   templateUrl: './todo.component.html',
-  styleUrl: './todo.component.scss',
 })
 export class TodoComponent implements OnInit {
   public filteredTasks: TaskListType = [];
   public taskList: TaskListType = [];
   public searchValue: string = '';
-
   public searchControl = new FormControl('');
 
   constructor(
@@ -54,7 +46,13 @@ export class TodoComponent implements OnInit {
         );
       });
   }
-  openDialog() {
+
+  ngOnInit(): void {
+    this.taskList = this.todoServiceService.getTaskList();
+    this.filteredTasks = [...this.taskList];
+  }
+
+  public openDialog() {
     const dialogRef = this.dialog.open(AddTaskFormComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -63,22 +61,13 @@ export class TodoComponent implements OnInit {
         const payload: Task = {
           id: uid,
           title: result.title,
-          dueDate: this.getFormattedValue(result.dueDate),
+          dueDate: getFormattedValue(result.dueDate),
         };
         payload.expired = this.todoServiceService.calculateIsExpired(payload);
         this.taskList.push(payload);
         this.filteredTasks = [...this.taskList];
       }
     });
-  }
-
-  getFormattedValue(date: string) {
-    return new Date(date).toLocaleString('en-US', timeSettings as any);
-  }
-
-  ngOnInit(): void {
-    this.taskList = this.todoServiceService.getTaskList();
-    this.filteredTasks = [...this.taskList];
   }
 
   public onCheckedTask(id: string) {
