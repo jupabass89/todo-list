@@ -1,0 +1,16 @@
+<mat-toolbar class="header">
+  <span>TODO</span>
+  <section class="search-bar">
+    <mat-form-field>
+      <mat-label>Task</mat-label>
+      <input type="tel" matInput placeholder="" [formControl]="searchControl" (blur)="onBlur()">
+    </mat-form-field>
+  </section>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+
+<section class="content">
+  <app-task-list [taskList]="filteredTasks" (check)="onCheckedTask($event)" />
+</section>

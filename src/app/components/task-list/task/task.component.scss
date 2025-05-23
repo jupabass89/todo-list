@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+  // width: 400px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pending {
+  background-color: rgb(220, 235, 197);
+  border-radius: 10px;
+}
+
+.expired {
+  background-color: rgb(247, 205, 205);
+  border-radius: 10px;
+}
